@@ -1,9 +1,3 @@
-'''
-Created on May 26, 2018
-
-@author: bingo
-'''
-
 import random
 import numpy as numpy
 from functools import reduce
@@ -38,7 +32,3 @@ def classify(iteration, factor):
 
 if __name__ == '__main__':
     print(classify(2000, 1))
-
-
-
-    
