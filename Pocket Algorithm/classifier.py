@@ -1,9 +1,3 @@
-'''
-Created on May 29, 2018
-
-@author: bingo
-'''
-
 import random
 import numpy as numpy
 from functools import reduce
@@ -52,6 +46,3 @@ if __name__ == '__main__':
         errs.append(test(train(100, training_data), testing_data))
         
     print(reduce(lambda x, y: x + y, errs) / len(errs))
-    
-    
-    
