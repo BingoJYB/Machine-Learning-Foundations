@@ -1,10 +1,3 @@
-'''
-Created on Jun 26, 2018
-
-@author: bingo
-'''
-
-
 import numpy as np
 
 
@@ -130,7 +123,3 @@ def _19_20():
 
 _17_18(5000)
 _19_20()
-
-
-
-
