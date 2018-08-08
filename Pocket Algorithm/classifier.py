@@ -2,11 +2,14 @@ import random
 import numpy as numpy
 from functools import reduce
 
+
 def sign(vals):
     return numpy.asarray(list(map(lambda val: -1 if val <= 0 else 1, vals))).reshape((vals.shape[0] ,1))
 
+
 def calculateErr(W, X, Y):
     return numpy.sum(numpy.absolute(sign(numpy.dot(X, W)) - Y) * 0.5) / X.shape[0]
+
 
 def train(updates, data):
     data = numpy.asarray(sorted(data, key = lambda k: random.random()))
@@ -32,11 +35,13 @@ def train(updates, data):
                     
     return best_W
 
+
 def test(W, data):
     w_0 = numpy.ones((data.shape[0], 1))
     X = numpy.concatenate((w_0, data[:, :-1]), axis = 1)
     Y = data[:, -1:]
     return calculateErr(W, X, Y)
+
 
 if __name__ == '__main__':
     training_data = numpy.loadtxt('train.txt')
