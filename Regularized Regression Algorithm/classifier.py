@@ -110,8 +110,9 @@ for rou in rou_list:
     Ecv_total = 0
 
     for i in range(5):
-        masked_train_data = np.ma.array(train_data, mask=False)
-        masked_train_data.mask[i*40:(i+1)*40] = True
+        mask = [False] * 200
+        mask[i*40:(i+1)*40] = [True] * 40
+        masked_train_data = train_data[~np.array(mask)]
 
         wreg = get_wreg(np.asmatrix(masked_train_data), np.power(np.asarray([10], dtype='d'), rou))
         Ecv = calculate_Err(wreg, train_data[i*40:(i+1)*40, :])
@@ -131,33 +132,3 @@ Ein = calculate_Err(wreg, train_data)
 Eout = calculate_Err(wreg, test_data)
 
 print((Ein, Eout))
-
-
-Ecv_total = 0
-
-mask = [0] * 800
-mask[160:320] = [1] * 160
-masked_train_data = np.ma.array(train_data, mask=mask)
-
-wreg = get_wreg(train_data[40:, :], np.power(np.asarray([10], dtype='d'), -8.0))
-Ecv = calculate_Err(wreg, train_data[0:40, :])
-Ecv_total = Ecv_total + Ecv
-
-print(masked_train_data)
-wreg = get_wreg(np.asmatrix(masked_train_data), np.power(np.asarray([10], dtype='d'), -8.0))
-Ecv = calculate_Err(wreg, train_data[40:80, :])
-Ecv_total = Ecv_total + Ecv
-
-wreg = get_wreg(np.asmatrix(np.concatenate((np.asarray(train_data[:80, :]), np.asarray(train_data[120:, :])))), np.power(np.asarray([10], dtype='d'), -8.0))
-Ecv = calculate_Err(wreg, train_data[80:120, :])
-Ecv_total = Ecv_total + Ecv
-
-wreg = get_wreg(np.asmatrix(np.concatenate((np.asarray(train_data[:120, :]), np.asarray(train_data[160:, :])))), np.power(np.asarray([10], dtype='d'), -8.0))
-Ecv = calculate_Err(wreg, train_data[120:160, :])
-Ecv_total = Ecv_total + Ecv
-
-wreg = get_wreg(train_data[:160, :], np.power(np.asarray([10], dtype='d'), -8.0))
-Ecv = calculate_Err(wreg, train_data[160:200, :])
-Ecv_total = Ecv_total + Ecv
-
-print(Ecv_total / 5)
